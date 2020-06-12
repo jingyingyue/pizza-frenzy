@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+
+		<!-- meta tags -->
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS  -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="{% static 'orders/style.css' %}">
+    </head>
+
+    <body>
+    	<!-- header -->
+		<h1 class="navbar-brand">
+			<img src="{% static 'orders/brand.png' %}" width="55" height="55" class="d-inline-block">
+			<a href="{% url 'index' %}">Pizza Frenzy</a>
+    	</h1>
+    	
+    	{% if user.is_authenticated %}
+	    	<!-- navigation bar -->
+		   	<nav class="navbar navbar-expand-lg navbar-dark justify-content-right">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="{% url 'cart' %}">Cart ({{ count }})</a>
+							</li>
+							{% if user.is_staff %}
+								<li class="nav-item active">
+									<a class="nav-link mr-1" href="{% url 'orders' %}">View Orders</a>
+								</li>
+							{% else %}
+								<li class="nav-item active">
+									<a class="nav-link mr-1" href="{% url 'orders' %}">My Orders</a>
+								</li>
+							{% endif %}
+						</ul>
+						<span class="navbar-text ml-3 mr-3">{{ user.username }}</span>
+						<a class="btn btn-outline-light" href="{% url 'logout' %}">Logout</a>
+				</div>
+			</nav>
+
+			<div class="container">
+				<div class="row justify-content-around">
+					<!-- menu sidebar -->
+					<div id="menu-sidebar" class="col-auto list-group">
+						{% for category in categories %}
+						    <a href="{% url 'menu' category.name %}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+					    {% endfor %}
+					</div>
+
+					<!-- menu selection  -->
+					<div id="menu-selection" class="col-8">
+						{% block main %}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		<!-- login/register forms -->
+		{% block body %}
+		{% endblock %}
+
+		<!-- scripts -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="{% static 'orders/script.js' %}"></script>
+    </body>
+</html>

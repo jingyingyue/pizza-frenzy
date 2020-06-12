@@ -1,0 +1,73 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block title %}Cart | Pizza Frenzy{% endblock %}
+
+{% block main %}
+	<div class="cart">
+		<h1><img class="icon-l" src="{% static 'orders/cart.png' %}">Cart</h1>
+		{% if count == 0 %}
+			<div class="empty-cart">
+				<p><i>No items added</i></p>
+			</div>
+		{% else %}
+			<table class="table table-sm table-borderless mx-auto text-center">
+				<thead>
+					<tr>
+						<th></th>
+	                    <th>Item</th>
+	                    <th>Price</th>
+	                </tr>
+				</thead>
+				<tbody>
+					{% for item in cart %}
+						<tr>
+							<td>
+								<!-- remove item form -->
+								<form action="{% url 'remove_item' %}" method="POST">
+									{% csrf_token %}
+									<input name="cart_id" type="hidden" value="{{ item.id }}">
+									<input name="price" type="hidden" value="{{ item.price }}">
+									<input class="minus" type="image" src="{% static 'orders/minus.png' %}" title="Remove from cart">
+								</form>
+							</td>
+							<td>{{ item.item }}
+								{% if item.size %} ({{ item.size }}) {% endif %}
+								<br>
+								{% if item.item|slice:"0:3" == 'Reg' or item.item|slice:"0:3" == 'Sic' %}
+									<sup>({{ item.add_ons }})</sup>
+								{% endif %}
+								{% if item.item|slice:"0:3" == 'Sub' %}
+									<sup>+ {{ item.add_ons }}</sup>
+								{% endif %}
+							</td>
+							<td>${{ item.price }}</td>
+						</tr>
+					{% endfor %}
+						<tr>
+							<td></td>
+							<td><strong>Total:</strong></td>
+							<td>${{ order.total }}</td>
+						</tr>
+				</tbody>
+			</table>
+
+			<div class="text-right">
+				<!-- confirm order -->
+				<div class="form-check">
+					<input id="confirm-order-box" type="checkbox">
+					<label id="confirm-order-label">Confirm order</label>
+				</div>
+
+				<!-- place order form -->
+				<form action="{% url 'place_order' %}" method="POST">
+					{% csrf_token %}
+					<input name="order_id" type="hidden" value="{{ order.id }}">
+					<button id="checkout-button" class="btn btn-outline-light" type="submit" disabled>
+						<strong>Checkout</strong>
+					</button>
+				</form>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

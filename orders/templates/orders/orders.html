@@ -1,0 +1,167 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block title %}Orders | Pizza Frenzy{% endblock %}
+
+{% block main %}
+	<div class="orders">
+		<h1><img class="icon-l" src="{% static 'orders/order.png' %}">Orders</h1>
+		<!-- staff orders view -->
+		{% if user.is_staff %}
+			{% if not all_orders %}
+				<div class="no-orders">
+					<p><i>No confirmed orders</i></p>
+				</div>
+			{% else %}
+				<table id="order-table" class="table table-sm table-borderless mx-auto text-center">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Order #</th>
+							<th>Customer</th>
+		                    <th>Date</th>
+		                    <th>Status</th>
+		                    <th></th>
+		                </tr>
+					</thead>
+					<tbody>
+						{% for order in all_orders reversed %}
+							<tr>
+								<td>
+									<img class="eye" src="{% static 'orders/eye.png' %}" title="View order" data-toggle="modal" data-target="#view-order{{ order.id }}">
+								</td>
+								<td>{{ order.id }}</td>
+								<td>{{ order.user }}</td>
+								<td>{{ order.date }}</td>
+								<td>{{ order.status }}</td>
+								<td>
+									<!-- complete order form -->
+									<form action="{% url 'complete_order' %}" method="POST">
+										{% csrf_token %}
+										<input name="order_id" type="hidden" value="{{ order.id }}">
+										<input type="image" class="tick" src="{% static 'orders/tick.png' %}" title="Complete order">
+									</form>
+								</td>
+							</tr>
+
+							<!-- view order popup -->
+							<div class="modal fade" id="view-order{{ order.id }}" tabindex="-1" role="dialog">
+								<div class="modal-dialog modal-md">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h6 class="modal-title">Order #{{ order.id }}</h6>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<div class="row text-center border-bottom">
+												<div class="col-8"><strong>Item</strong></div>
+												<div class="col-4"><strong>Price</strong></div>
+											</div>
+											{% for item in all_cart %}
+												{% if item.order_id == order.id %}
+													<div class="row text-center my-2">
+														<div class="col-8">
+															{{ item.item }}
+															{% if item.size %} ({{ item.size }}) {% endif %}
+															<br>
+															{% if item.item|slice:"0:3" == 'Reg' or item.item|slice:"0:3" == 'Sic' %}
+																<sup>({{ item.add_ons }})</sup>
+															{% endif %}
+															{% if item.item|slice:"0:3" == 'Sub' %}
+																<sup>+ {{ item.add_ons }}</sup>
+															{% endif %}
+														</div>
+														<div class="col-4">${{ item.price }}</div>
+													</div>
+												{% endif %}
+											{% endfor %}
+											<div class="row text-center border-top">
+												<div class="col-8"><strong>Total:</strong></div>
+												<div class="col-4"><strong>${{ order.total }}</strong></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+
+		<!-- user orders view -->
+		{% else %}
+			{% if not user_orders %}
+				<div class="no-orders">
+					<p><i>No confirmed orders</i></p>
+				</div>
+			{% else %}
+				<table class="table table-sm table-borderless mx-auto text-center">
+					<thead>
+						<tr>
+							<th>Order #</th>
+		                    <th>Date</th>
+		                    <th>Status</th>
+							<th></th>
+		                </tr>
+					</thead>
+					<tbody>
+						{% for order in user_orders %}
+							<tr>
+								<td>{{ order.id }}</td>
+								<td>{{ order.date }}</td>
+								<td>{{ order.status }}</td>
+								<td>
+									<img class="eye" src="{% static 'orders/eye.png' %}" title="View order" data-toggle="modal" data-target="#view-order{{ order.id }}">
+								</td>
+							</tr>
+
+							<!-- view order popup -->
+							<div class="modal fade" id="view-order{{ order.id }}" tabindex="-1" role="dialog">
+								<div class="modal-dialog modal-md">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h6 class="modal-title">Order #{{ order.id }}</h6>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<div class="row text-center border-bottom">
+												<div class="col-8"><strong>Item</strong></div>
+												<div class="col-4"><strong>Price</strong></div>
+											</div>
+											{% for item in user_cart %}
+												{% if item.order_id == order.id %}
+													<div class="row text-center my-2">
+														<div class="col-8">
+															{{ item.item }}
+															{% if item.size %} ({{ item.size }}) {% endif %}
+															<br>
+															{% if item.item|slice:"0:3" == 'Reg' or item.item|slice:"0:3" == 'Sic' %}
+																<sup>({{ item.add_ons }})</sup>
+															{% endif %}
+															{% if item.item|slice:"0:3" == 'Sub' %}
+																<sup>+ {{ item.add_ons }}</sup>
+															{% endif %}
+														</div>
+														<div class="col-4">${{ item.price }}</div>
+													</div>
+												{% endif %}
+											{% endfor %}
+											<div class="row text-center border-top">
+												<div class="col-8"><strong>Total:</strong></div>
+												<div class="col-4"><strong>${{ order.total }}</strong></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+		{% endif %}
+	</div>
+{% endblock %}

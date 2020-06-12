@@ -1,0 +1,234 @@
+body {
+	background-image: url('background.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.container {
+	margin-top: 75px;
+	margin-bottom: 20px;
+}
+
+/* navbar */
+.navbar-brand {
+	display: inline-block;
+	font-family: "Ink Free";
+	font-size: 45px;
+	font-weight: bold;
+	padding-top: 0px;
+	padding-left: 10px;
+}
+
+.navbar-brand a:link {
+	color: white;
+}
+
+.navbar-brand a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.navbar {
+	display: inline-block;
+	float: right;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 5px 0px 0px 5px;
+}
+
+.navbar .nav-item,
+.navbar .navbar-text,
+.navbar .btn {
+	font-size: 14px;
+}
+
+
+/* login/register form */
+.login-container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#login-card,
+#register-card {
+	width: 400px;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+#login-card {
+	text-align: center;
+}
+
+.card-body .alert {
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	padding: 0px 15px;
+}
+
+
+/* menu sidebar */
+#menu-sidebar a {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+#menu-sidebar a:hover {
+    background-color: rgb(41, 41, 46,0.7);
+}
+
+
+ /* menu announcement */
+ #menu-selection .news {
+ 	color: white;
+ 	text-align: center;	
+ 	font-size: 18px;
+ }
+
+ #menu-selection .icon-l {
+	width: 50px;
+	margin-right: 10px;
+}
+
+ .news h1 {
+ 	font-family: "Ink Free";
+ 	font-weight: bold;
+ 	margin-top: 15px;
+ 	margin-bottom: 15px;
+ }
+
+ .news p {
+ 	margin-top: 40px;
+ }
+
+
+/* menu selection */
+#menu-selection {
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: 5px;
+}
+
+#menu-selection .table-header {
+	caption-side: top;
+	color: white;
+	text-align: center;
+	font-family: "Ink Free";
+	font-weight: bold;
+	font-size: 36px;
+}
+
+#menu-selection table {
+	color: white;
+	width: 60%;
+}
+
+#menu-selection thead {
+	border-bottom: 1px solid white;
+}
+
+#menu-selection .plus {
+	width: 18px;
+	margin-left: 3px;
+}
+
+#menu-selection .plus:hover {
+	cursor: pointer;
+}
+
+#menu-selection .icon-s {
+	width: 45px;
+	margin-right: 10px;
+}
+
+#menu-selection .icon-m {
+	width: 50px;
+	margin-right: 10px;
+}
+
+#menu-form-content {
+	text-align: center;
+}
+
+#menu-form-content #extras {
+    text-align: left;
+}
+
+#menu-form-button {
+	width: 35px;
+}
+
+
+/* cart */
+.empty-cart {
+	color: white;
+	text-align: center;
+}
+
+.cart h1 {
+	color: white;
+	text-align: center;
+ 	font-family: "Ink Free";
+ 	font-weight: bold;
+ 	margin-top: 15px;
+ 	margin-bottom: 15px;
+}
+
+.cart table tr:last-child td {
+    border-top: 1px solid white;
+}
+
+.cart .minus {
+	width: 18px;
+	margin-top: 4px;
+}
+
+#confirm-order-label {
+	color: white;
+	margin-bottom: 5px;
+}
+
+#checkout-button {
+	margin-bottom: 20px;
+}
+
+
+/* orders */
+.no-orders {
+	color: white;
+	text-align: center;
+}
+
+.orders h1 {
+	color: white;
+	text-align: center;
+ 	font-family: "Ink Free";
+ 	font-weight: bold;
+ 	margin-top: 15px;
+ 	margin-bottom: 15px;
+}
+
+.orders #order-table {
+	color: white;
+	width: 70%;
+}
+
+.orders .eye {
+	width: 23px;
+	padding-bottom: 3px;
+}
+
+.orders .tick {
+	width: 20px;
+	padding-top: 5px;
+}
+
+.orders .eye:hover {
+	cursor: pointer;
+}
+
+.orders .modal-header {
+	border-bottom: 0 none;
+}

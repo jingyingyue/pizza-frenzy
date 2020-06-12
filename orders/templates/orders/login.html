@@ -1,0 +1,29 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Login | Pizza Frenzy{% endblock %}
+
+{% block body %}
+	<div class="login-container">
+		<div id="login-card" class="card text-white">
+			<div class="card-body mt-2">
+			    {% if pass %}
+					<div class="alert alert-success" role="alert">{{ pass }}</div>
+				{% endif %}
+			    {% if fail %}
+					<div class="alert alert-danger" role="alert">{{ fail }}</div>
+				{% endif %}
+			    <form action="{% url 'login' %}" method="POST">
+			    	{% csrf_token %}
+			        <div class="form-group">
+			            <input class="form-control" name="username" placeholder="Username" type="text" required>
+			        </div>
+			        <div class="form-group">
+			            <input class="form-control" name="password" placeholder="Password" type="password" required>
+			        </div>
+					<button class="btn btn-outline-light" type="submit">Login</button>
+				</form>
+			</div>
+			<p>Don't have an account? <a href="{% url 'register' %}" class="card-link">Register</a></p>
+		</div>
+	</div>
+{% endblock %}

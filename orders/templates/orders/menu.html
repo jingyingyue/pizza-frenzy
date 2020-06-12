@@ -1,0 +1,262 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block title %}{{ selected_category.name }} | Pizza Frenzy{% endblock %}
+
+{% block main %}
+	<!-- regular pizzas -->
+	{% if selected_category.name == 'Regular Pizza' %}
+		<table class="table table-sm table-borderless mx-auto text-center">
+	        <caption class="table-header">
+	        	<img class="icon-s" src="{% static 'orders/pizza.png' %}">Regular Pizza
+	        </caption>
+			<thead>
+				<tr>
+                    <th>Name</th>
+                    <th>Small</th>
+                    <th>Large</th>
+                </tr>
+			</thead>
+			<tbody>
+				{% for item in regular_pizzas %}
+					<tr>
+						<td>{{ item.name }}</td>
+						<td>
+							${{ item.price_small }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Small" data-price="{{ item.price_small }}">
+						</td>
+						<td>
+							${{ item.price_large }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Large" data-price="{{ item.price_large }}">
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	    </table>
+	{% endif %}
+
+	<!-- sicilian pizzas -->
+	{% if selected_category.name == 'Sicilian Pizza' %}
+		<table class="table table-sm table-borderless mx-auto text-center">
+	        <caption class="table-header">
+		        <img class="icon-s" src="{% static 'orders/pizza.png' %}">Sicilian Pizza
+		    </caption>
+			<thead>
+				<tr>
+                    <th>Name</th>
+                    <th>Small</th>
+                    <th>Large</th>
+                </tr>
+			</thead>
+			<tbody>
+				{% for item in sicilian_pizzas %}
+					<tr>
+						<td>{{ item.name }}</td>
+						<td>
+							${{ item.price_small }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Small" data-price="{{ item.price_small }}" data-toppings="{{ toppings }}">
+						</td>
+						<td>
+							${{ item.price_large }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Large" data-price="{{ item.price_large }}" data-toppings="{{ toppings }}">
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	    </table>
+	{% endif %}
+
+	<!-- subs -->
+	{% if selected_category.name == 'Sub' %}
+		<table class="table table-sm table-borderless mx-auto text-center">
+	        <caption class="table-header">
+		        <img class="icon-s" src="{% static 'orders/sub.png' %}">Sub
+		    </caption>
+			<thead>
+				<tr>
+                    <th>Name</th>
+                    <th>Small</th>
+                    <th>Large</th>
+                </tr>
+			</thead>
+			<tbody>
+				{% for item in subs %}
+					<tr>
+						<td>{{ item.name }}</td>
+						{% if item.price_small is None %}
+							<td></td>
+						{% else %}
+							<td>
+								${{ item.price_small }}
+								<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Small" data-price="{{ item.price_small }}">
+							</td>
+						{% endif %}
+						<td>
+							${{ item.price_large }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Large" data-price="{{ item.price_large }}">
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	    </table>
+	{% endif %}
+
+	<!-- pastas -->
+	{% if selected_category.name == 'Pasta' %}
+		<table class="table table-sm table-borderless mx-auto text-center">
+	        <caption class="table-header">
+		        <img class="icon-s" src="{% static 'orders/pasta.png' %}">Pasta
+		    </caption>
+			<thead>
+				<tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+			</thead>
+			<tbody>
+				{% for item in pastas %}
+					<tr>
+						<td>{{ item.name }}</td>
+						<td>
+							${{ item.price }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-price="{{ item.price }}">
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	    </table>
+	{% endif %}
+
+	<!-- salads -->
+	{% if selected_category.name == 'Salad' %}
+		<table class="table table-sm table-borderless mx-auto text-center">
+	        <caption class="table-header">
+		        <img class="icon-s" src="{% static 'orders/salad.png' %}">Salad
+		    </caption>
+			<thead>
+				<tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+			</thead>
+			<tbody>
+				{% for item in salads %}
+					<tr>
+						<td>{{ item.name }}</td>
+						<td>
+							${{ item.price }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-price="{{ item.price }}">
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	    </table>
+	{% endif %}
+
+	<!-- dinner platters -->
+	{% if selected_category.name == 'Dinner Platter' %}
+		<table class="table table-sm table-borderless mx-auto text-center">
+	        <caption class="table-header">
+		        <img class="icon-m" src="{% static 'orders/platter.png' %}">Dinner Platter
+		    </caption>
+			<thead>
+				<tr>
+                    <th>Name</th>
+                    <th>Small</th>
+                    <th>Large</th>
+                </tr>
+			</thead>
+			<tbody>
+				{% for item in dinner_platters %}
+					<tr>
+						<td>{{ item.name }}</td>
+						<td>
+							${{ item.price_small }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Small" data-price="{{ item.price_small }}">
+						</td>
+						<td>
+							${{ item.price_large }}
+							<img class="plus" src="{% static 'orders/plus.png' %}" data-category="{{ selected_category.name }}" data-name="{{ item.name }}" data-size="Large" data-price="{{ item.price_large }}">
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+	    </table>
+	{% endif %}
+
+	<!-- menu selection form  -->
+	<div class="modal fade" id="menu-form" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<form action="{% url 'add_item' %}" method="POST">
+					    {% csrf_token %}
+					    <input id="input-name" name="name" type="hidden">
+					    <input id="input-size" name="size" type="hidden">
+					    <input id="input-price" name="price" type="hidden">
+					    <input id="input-category" name="category" type="hidden">
+
+					    <div id="menu-form-content">
+					    	<h6 id="name"></h6>
+					    	<h6 id="size"></h6>
+					    	<h6 id="price" data-price=""></h6>
+
+					    	<!-- pizza toppings -->
+					    	{% if selected_category.name == 'Regular Pizza' or selected_category.name == 'Sicilian Pizza' %}
+								<div id="toppings">
+		    						<hr>
+									<h6>Topping:</h6>
+									<div class="form-group">
+							    		<select class="form-control" id="topping1" name="topping1">
+											{% for topping in toppings %}
+												<option value="{{ topping.name }}">{{ topping.name }}</option>
+											{% endfor %}
+							    		</select>
+							    	</div>
+									<div class="form-group">
+							    		<select class="form-control" id="topping2" name="topping2">
+											{% for topping in toppings %}
+												<option value="{{ topping.name }}">{{ topping.name }}</option>
+											{% endfor %}
+							    		</select>
+							    	</div>
+									<div class="form-group">
+							    		<select class="form-control" id="topping3" name="topping3">
+											{% for topping in toppings %}
+												<option value="{{ topping.name }}">{{ topping.name }}</option>
+											{% endfor %}
+							    		</select>
+							    	</div>
+							    </div>
+					    	{% endif %}
+
+					    	<!-- sub extras -->
+					    	{% if selected_category.name == 'Sub' %}
+						    	<div id="extras">
+		    						<hr>
+									<h6>Extra:</h6>
+									{% for extra in extras %}
+										<div class="form-check" id="check-extra{{ extra.id }}">
+											<label>
+												<input class="form-check-input" id="extra{{ extra.id }}" name="extra{{ extra.id }}" type="checkbox" value="{{ extra.name }}" data-price="{{ extra.price }}" data-priceid="price{{ extra.id }}">
+												<input id="price{{ extra.id }}" name="price{{ extra.id }}" type="hidden" value="0.00">
+												{{ extra.name }} +${{ extra.price}}
+											</label>
+										</div>
+									{% endfor %}
+						    	</div>
+					    	{% endif %}
+					    </div>
+
+						<div class="text-center">
+							<input id="menu-form-button" type="image" src="{% static 'orders/cart-form.png' %}" title="Add to cart">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

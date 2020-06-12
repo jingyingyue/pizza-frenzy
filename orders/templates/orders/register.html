@@ -1,0 +1,47 @@
+{% extends "orders/base.html" %}
+
+{% block title %}Register | Pizza Frenzy{% endblock %}
+
+{% block body %}
+	<div id="register-card" class="card text-white mx-auto mb-3">
+		<div class="card-body">
+		    {% if message %}
+			    <div class="text-center">
+					<div class="alert alert-danger" role="alert">{{ message }}</div>
+				</div>
+			{% endif %}
+		    <form action="{% url 'register' %}" method="POST">
+		    	{% csrf_token %}
+				<div class="form-row mb-3">
+					<div class="col">
+						<label for="first_name">First Name</label>
+						<input class="form-control" name="first_name" type="text" required>
+					</div>
+					<div class="col">
+						<label for="last_name">Last Name</label>
+						<input class="form-control" name="last_name" type="text" required>
+				    </div>
+				</div>
+		        <div class="form-group">
+		        	<label for="first_name">Email</label>
+		            <input class="form-control" name="email" type="email" required>
+		        </div>
+		        <div class="form-group">
+		        	<label for="first_name">Username</label>
+		            <input class="form-control" name="username" type="text" required>
+		        </div>
+		        <div class="form-group">
+		        	<label for="first_name">Password</label>
+		            <input class="form-control" name="password" type="password" required>
+		        </div>
+		        <div class="form-group">
+		        	<label for="first_name">Confirm Password</label>
+		            <input class="form-control" name="confirm_password" type="password" required>
+		        </div>
+				<div class="text-center">
+					<button class="btn btn-outline-light" type="submit">Create account</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
